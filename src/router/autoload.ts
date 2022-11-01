@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from "vue-router"
 
 const layouts = import.meta.glob('../layouts/*.vue', { eager: true })
-const views = import.meta.glob('../views/**/*.vue', { eager: true }) // **的意思是能够遍历到子目录
+const views = import.meta.glob('../views/**/*.vue', { eager: true }) // **的意思是能够遍历到子目录 {eager: true} 为直接引入，不写{eager: true}是动态引入
 function getRoutes() {
     const layoutRoutes = [] as RouteRecordRaw[]
     Object.entries(layouts).forEach(([file, module]) => {
