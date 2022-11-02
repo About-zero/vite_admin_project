@@ -22,6 +22,18 @@ export default ({ command, mode }: ConfigEnv) => {
     plugins: setupPlugins(isBuild, env),
     resolve: {
       alias,
+    },
+    server: {
+      host: 'localhost',
+      open: true,
+      port: 3000,
+      // proxy: {
+      //   "/api": {
+      //     target: 'http://localhost:3000/', // 要访问的地址
+      //     changeOrigin: true, // 开启代理
+      //     rewrite: (path) => path.replace(/^\/api/, '')
+      //   }
+      // }
     }
   }
 }
