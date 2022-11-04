@@ -1,8 +1,19 @@
 <template>
-  <input type="text" placeholder="请输入手机号或邮箱" class="hd-input" />
+  <input
+    type="text"
+    class="hd-input"
+    :value="props.modelValue"
+    @input="$emit('update:modelValue',$event.target.value)"
+  />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { emit } from "process"; 
+
+const props = defineProps({
+  modelValue: String,
+});
+</script>
 
 <style scope lang="scss">
 .hd-input {

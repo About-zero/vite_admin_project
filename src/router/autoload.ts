@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router"
-
+import { env } from '@/utils/helper'
 const layouts = import.meta.glob('../layouts/*.vue', { eager: true })
 const views = import.meta.glob('../views/**/*.vue', { eager: true }) // **的意思是能够遍历到子目录 {eager: true} 为直接引入，不写{eager: true}是动态引入
 function getRoutes() {
@@ -40,4 +40,5 @@ function getRouteByModule(file: string, module: { [key: string]: any }) {
     return Object.assign(route, module.default?.route)
 }
 
-export default getRoutes()
+const routes = env.VITE_ROUTER_AUTOLOAD ? getRoutes() : [] as RouteRecordRaw[]
+export default routes
