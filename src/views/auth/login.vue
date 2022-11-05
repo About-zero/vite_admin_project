@@ -1,18 +1,68 @@
+<script setup lang="ts">
+import userApi from "@/apis/userApi";
+import { store } from "@/utils";
+import v from "@/plugins/validate";
+const { Form, Field, ErrorMessage } = v;
+
+// yup写法
+
+// const schema = v.yup.object({
+//   account: v.yup.string().required().email().label('账号'),
+//   password: v.yup.string().required().min(3).label('密码'),
+// });
+const schema = {
+  // account: { required: true, email: true },
+  account: { required: true, regex: /.+@.+|\d{11}/ },
+  password: { required: true, min: 3 },
+};
+const onSubmit = async (values) => {
+  const {
+    result: { token },
+  } = await userApi.login(values);
+  store.set("token", {
+    expire: 1000,
+    token,
+  });
+};
+</script>
 <template>
-  <div
-    class="bg-slate-300 h-screen flex justify-center items-start md:items-center p-5 md:p-0"
-  >
+  <Form @submit="onSubmit" :validation-schema="schema" #default="{ errors }">
     <div
       class="w-[720px] translate-y-32 md:translate-y-0 bg-white md:grid grid-cols-2 rounded-md shadow-md overflow-hidden"
     >
-      <div class="p-6">
-        <h2 class="text-center text-gray-700 text-lg mt-3">用户登录</h2>
-        <div class="mt-8">
-          <hdInput placeholder="请输入手机号或邮箱" v-model="form.account" />
-          <hdInput placeholder="请输入登录密码" class="mt-3" />
+      <div class="p-6 flex flex-col justify-between">
+        <div>
+          <h2 class="text-center text-gray-700 text-lg mt-3">用户登录</h2>
+          <div class="mt-8">
+            <Field
+              name="account"
+              value="lxp@qq.com"
+              as="input"
+              class="hd-input"
+              label="账号"
+              placeholder="请输入邮箱或手机号"
+            />
+            <div v-if="errors.account" class="hd-error">请输入邮箱或手机号</div>
+            <!-- <ErrorMessage name="account" as="div" class="hd-error" /> -->
+            <Field
+              name="password"
+              value="admin"
+              as="input"
+              class="hd-input mt-3"
+              label="密码"
+              type="password"
+              placeholder="请输入密码"
+            />
+            <ErrorMessage name="password" as="div" class="hd-error" />
+          </div>
+          <!-- <button class="hd-button mt-5">登录</button> -->
+          <hdButton />
+          <div class="flex justify-center mt-3">
+            <i
+              class="fa-brands fa-weixin bg-green-600 text-white rounded-full p-2 cursor-pointer"
+            ></i>
+          </div>
         </div>
-        <!-- <button class="hd-button mt-5">登录</button> -->
-        <hdButton />
         <div class="flex gap-2 justify-center mt-5">
           <hdLink />
           <!-- <a href="" class="text-xs text-gray-700 hover:text-violet-700">网站首页</a> -->
@@ -21,27 +71,19 @@
           <a href="" class="text-xs text-gray-700">找回密码</a>
         </div>
       </div>
-      <div class="hidden md:block">
+      <div class="hidden md:block relative">
         <img
           src="../../../public/images/login.jpg"
-          class="h-96 w-full object-cover"
+          class="absolute h-full w-full object-cover"
         />
       </div>
     </div>
-  </div>
+  </Form>
 </template>
 
-<script setup lang="ts">
-import { reactive } from "vue";
-
-const form = reactive({
-  account: "aaa",
-  password: "",
-});
-</script>
 <style scoped lang="scss">
-.hd-input {
-  @apply border w-full rounded-sm py-1 px-2 border-gray-200 placeholder:text-sm outline-none focus:ring-2 ring-offset-2 ring-violet-600 duration-300 focus:border-white;
+form {
+  @apply bg-slate-300 h-screen flex justify-center items-start md:items-center p-5 md:p-0;
 }
 .hd-button {
   @apply bg-violet-700 text-white w-full py-2 rounded-md hover:bg-violet-500 duration-300;

@@ -1,19 +1,21 @@
-<template>
-  <input
-    type="text"
-    class="hd-input"
-    :value="props.modelValue"
-    @input="$emit('update:modelValue',$event.target.value)"
-  />
-</template>
-
 <script setup lang="ts">
-import { emit } from "process"; 
+import { emit } from "process";
 
 const props = defineProps({
   modelValue: String,
 });
 </script>
+
+<template>
+  <input
+    type="text"
+    class="hd-input"
+    :value="props.modelValue"
+    @input="
+      $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+    "
+  />
+</template>
 
 <style scope lang="scss">
 .hd-input {

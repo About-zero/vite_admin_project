@@ -24,9 +24,11 @@ function info() {
 interface LoginInterface {
     token: string
 }
-function login() {
+function login(data: any) {
     return http.requset<LoginInterface>({
-        url: 'login'
+        url: 'login',
+        method: 'post',
+        data
     })
 }
 
