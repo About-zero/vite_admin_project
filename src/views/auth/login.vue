@@ -2,6 +2,8 @@
 import userApi from "@/apis/userApi";
 import { store } from "@/utils";
 import v from "@/plugins/validate";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const { Form, Field, ErrorMessage } = v;
 
 // yup写法
@@ -15,14 +17,20 @@ const schema = {
   account: { required: true, regex: /.+@.+|\d{11}/ },
   password: { required: true, min: 3 },
 };
-const onSubmit = async (values) => {
+const onSubmit = async (values: any) => {
   const {
     result: { token },
   } = await userApi.login(values);
   store.set("token", {
-    expire: 1000,
     token,
   });
+  router.push({ name: "home" });
+};
+</script>
+<script lang="ts">
+// 自定义路由信息
+export default {
+  route: { name: "login", meta: { guest: true } },
 };
 </script>
 <template>

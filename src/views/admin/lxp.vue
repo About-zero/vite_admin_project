@@ -7,7 +7,7 @@
       :validate-on-input="true"
       #default="{ field, errorMessage }"
     >
-      <input v-bind="field" v-model="account" />
+      <input v-bind="field" />
       <hr />
       <p>{{ errorMessage }}</p>
     </Field>
