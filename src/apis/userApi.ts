@@ -11,14 +11,14 @@ import { http } from '@/plugins/axios'
 // }
 // export default new userApi()
 
-interface User {
+export interface User {
     name: string,
     age: number,
     avater: string
 }
 function info() {
     return http.requset<User>({
-        url: 'get'
+        url: 'user/info'
     })
 }
 interface LoginInterface {
