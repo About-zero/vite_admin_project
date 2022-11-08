@@ -16,6 +16,10 @@ export interface User {
     age: number,
     avater: string
 }
+export interface ILoginData {
+    account: string,
+    password: string
+}
 function info() {
     return http.requset<User>({
         url: 'user/info'
@@ -24,7 +28,7 @@ function info() {
 interface LoginInterface {
     token: string
 }
-function login(data: any) {
+export function login(data: ILoginData) {
     return http.requset<LoginInterface>({
         url: 'login',
         method: 'post',

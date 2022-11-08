@@ -5,10 +5,11 @@ export default {
     path: '/editor',
     component: () => import('@/layouts/admin.vue'),
     meta: {
-        title: '编辑器',
-        icon: 'fas fa-spell-check',
-        show: true,
-        auth: true
+        auth: true,
+        menu: {
+            title: '编辑器',
+            icon: 'fas fa-spell-check',
+        }
     },
     children: [
         {
@@ -16,8 +17,9 @@ export default {
             path: 'markdown',
             component: () => import('@/views/editor/markdown.vue'),
             meta: {
-                title: 'markdown编辑器',
-                show: true
+                menu: {
+                    title: 'markdown编辑器',
+                }
             }
         },
         {

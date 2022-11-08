@@ -5,11 +5,14 @@ export default {
     path: '/error',
     component: () => import('@/layouts/admin.vue'),
     meta: {
-        title: '错误页面',
-        icon: 'fas fa-bug',
-        show: true,
-        isClick: true,
-        auth: true
+
+        auth: true,
+        menu: {
+            title: '错误页面',
+            icon: 'fas fa-bug',
+            show: true,
+            isClick: true,
+        }
     },
     children: [
         {
@@ -17,8 +20,8 @@ export default {
             path: '404',
             component: () => import('@/views/errors/404.vue'),
             meta: {
-                title: '404页面',
-                show: true
+
+                menu: { title: '404页面', }
             },
         },
         {
@@ -26,14 +29,16 @@ export default {
             path: '403',
             component: () => import('@/views/errors/403.vue'),
             meta: {
-                title: '403页面',
-                show: true
+                menu: { title: '403页面', }
             },
         },
         {
             name: 'error.500',
             path: '500',
-            component: () => import('@/views/errors/500.vue')
+            component: () => import('@/views/errors/500.vue'),
+            meta: {
+                menu: { title: '500页面', }
+            },
         }
     ]
 } as RouteRecordRaw

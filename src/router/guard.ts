@@ -1,5 +1,7 @@
-import user from "@/store/user"
-import { store } from "@/utils"
+import { CacheEnum } from "@/enum/cacheEnum"
+import menuStore from "@/store/menuStore"
+import user from "@/store/userStore"
+import utils from "@/utils"
 import { RouteLocationNormalized, Router } from "vue-router"
 
 class Guard {
@@ -15,13 +17,15 @@ class Guard {
         if (this.isAuthCheck(to) === false) return { name: 'login' }
         if (this.isGuestCheck(to) === false) return { name: 'home' }
         await this.getUserInfo()
+        // 添加历史菜单
+        // menuStore().addHistoryMenu(to)
     }
     // 获取用户信息
     private getUserInfo() {
         if (this.token()) return user().getUserInfo()
     }
     private token(): string | null {
-        return store.get('token')?.token
+        return utils.store.get(CacheEnum.TOKEN_NAME)
     }
     // 游客拦截
     private isGuestCheck(route: RouteLocationNormalized) {
@@ -30,7 +34,11 @@ class Guard {
     }
     // 是否登录拦截
     private isAuthCheck(route: RouteLocationNormalized) {
-        return Boolean(!route.meta.auth || route.meta.auth && this.token())
+        const state = Boolean(!route.meta.auth || route.meta.auth && this.token())
+        if (state === false) {
+            utils.store.set(CacheEnum.REDIRECT_ROUTE_NAME, route.name)
+        }
+        return state
     }
 }
 export default (router: Router) => {

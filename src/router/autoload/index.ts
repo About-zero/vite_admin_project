@@ -1,9 +1,9 @@
-import { env } from '@/utils'
+import utils from '@/utils'
 import { RouteLocationRaw } from 'vue-router'
 import autoLoadModuleRoutes from './module'
 import getRoutes from './view'
 let routes = [] as RouteLocationRaw[]
-if (env.VITE_ROUTER_AUTOLOAD) {
+if (utils.env.VITE_ROUTER_AUTOLOAD) {
     routes = getRoutes()
 } else {
     routes = autoLoadModuleRoutes()

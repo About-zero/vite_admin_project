@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import userApi from "@/apis/userApi";
-import { store } from "@/utils";
+import utils from "@/utils";
 import v from "@/plugins/validate";
 import { useRouter } from "vue-router";
+import { CacheEnum } from "@/enum/cacheEnum";
 const router = useRouter();
 const { Form, Field, ErrorMessage } = v;
 
@@ -18,13 +19,7 @@ const schema = {
   password: { required: true, min: 3 },
 };
 const onSubmit = async (values: any) => {
-  const {
-    result: { token },
-  } = await userApi.login(values);
-  store.set("token", {
-    token,
-  });
-  router.push({ name: "home" });
+  utils.user.login(values);
 };
 </script>
 <script lang="ts">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import user from "@/store/user";
+import user from "@/store/userStore";
+import utils from "@/utils";
 const userStore = user();
 </script>
 <template>
@@ -18,16 +19,16 @@ const userStore = user();
         class="group-hover:block absolute top-full bg-white shadow-sm px-5 whitespace-nowrap border rounded-sm hidden"
       >
         <div class="flex items-center cursor-pointer border-b py-3">
-          <a class="fas fa-house-user"></a>
+          <a class="fab fa-dochub"></a>
           <span class="text-xs text-gray-600 ml-2">文档资料</span>
         </div>
         <div class="flex items-center cursor-pointer border-b py-3">
           <a class="fas fa-house-user"></a>
-          <span class="text-xs text-gray-600 ml-2">用户管理</span>
+          <span class="text-xs text-gray-600 ml-2">网站首页</span>
         </div>
-        <div class="flex items-center cursor-pointer py-3">
-          <a class="fas fa-house-user"></a>
-          <span class="text-xs text-gray-600 ml-2">会员中心</span>
+        <div class="flex items-center cursor-pointer py-3" @click="utils.user.logout()">
+          <a class="fas fa-outdent"></a>
+          <span class="text-xs text-gray-600 ml-2">退出登录</span>
         </div>
       </section>
     </div>
