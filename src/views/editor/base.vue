@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
-<template>base.vue</template>
+<template>
+    <div>base.vue</div>
+</template>
 <style scoped lang="scss"></style>

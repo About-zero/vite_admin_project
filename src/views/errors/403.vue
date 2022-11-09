@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
-<template>403</template>
+<template>
+    <div>403</div>
+</template>
 <style scoped lang="scss"></style>

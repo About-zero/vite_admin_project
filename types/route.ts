@@ -10,6 +10,9 @@ declare module 'vue-router' {
     guest?: boolean,
     // 访问权限
     permissions?: string[]
-    menu?: IMenu
+    menu?: IMenu,
+    // 路由切换动画
+    enterClass?: string,
+    leaveClass?: string
   }
 }
