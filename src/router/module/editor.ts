@@ -17,6 +17,7 @@ export default {
             path: 'markdown',
             component: () => import('@/views/editor/markdown.vue'),
             meta: {
+                permissions: 'editor_markdown',
                 menu: {
                     title: 'markdown编辑器',
                 }
@@ -25,7 +26,12 @@ export default {
         {
             name: 'editor.base',
             path: 'base',
-            component: () => import('@/views/editor/base.vue')
+            component: () => import('@/views/editor/base.vue'),
+            meta: {
+                menu: {
+                    title: '富文本编辑器',
+                }
+            }
         }
     ]
 } as RouteRecordRaw

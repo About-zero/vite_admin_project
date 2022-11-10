@@ -16,7 +16,6 @@ class Guard {
         // to里面的meta是我们自定义的路由规则（是否需要登录验证），可以看一下layouts里面的amdin布局
         if (this.isAuthCheck(to) === false) return { name: 'login' }
         if (this.isGuestCheck(to) === false) return { name: 'home' }
-        await this.getUserInfo()
         // 添加历史菜单
         // menuStore().addHistoryMenu(to)
     }

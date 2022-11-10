@@ -12,7 +12,8 @@ export default [
                 result: {
                     name: 'zero.',
                     age: 19,
-                    avater: '../../../public/images/children.jpg'
+                    avater: '../../../public/images/children.jpg',
+                    permissions: ['editor_markdown', 'article_edit']
                 },
             }
         },

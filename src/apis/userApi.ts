@@ -14,7 +14,8 @@ import { http } from '@/plugins/axios'
 export interface User {
     name: string,
     age: number,
-    avater: string
+    avater: string,
+    permissions: string[]
 }
 export interface ILoginData {
     account: string,

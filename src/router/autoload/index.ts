@@ -1,12 +1,23 @@
 import utils from '@/utils'
-import { RouteLocationRaw } from 'vue-router'
+import { RouteLocationRaw, Router } from 'vue-router'
 import autoLoadModuleRoutes from './module'
 import getRoutes from './view'
-let routes = [] as RouteLocationRaw[]
-if (utils.env.VITE_ROUTER_AUTOLOAD) {
-    routes = getRoutes()
-} else {
-    routes = autoLoadModuleRoutes()
+import userStore from '@/store/userStore';
+
+let routes: RouteLocationRaw[] = utils.env.VITE_ROUTER_AUTOLOAD ? getRoutes() : autoLoadModuleRoutes()
+
+function autoload(router: Router) {
+    // 通过权限过滤路由
+    const user = userStore()
+    routes = routes.map(route => {
+        route.children = route.children?.filter(r => {
+            const permission = r.meta?.permissions
+            return permission ? user.info?.permissions.includes(permission) : true
+        })
+        return route
+    })
+    routes.forEach(r => {
+        router.addRoute(r)
+    })
 }
-// TODO 通过权限过滤路由
-export default routes
+export default autoload
